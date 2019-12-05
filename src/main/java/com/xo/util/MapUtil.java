@@ -6,7 +6,11 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @description: Map常用操作
+ * @author: by FanXiaoQie
+ * @date:
+ */
 
 public class MapUtil {
     //将Entity转为Map<String,Object>,Entity中的空数据自动忽略

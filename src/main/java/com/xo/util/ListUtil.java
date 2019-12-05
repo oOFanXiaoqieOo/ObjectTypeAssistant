@@ -16,7 +16,7 @@ public class ListUtil {
      * 参数list：输入List数据
      * 参数t：返回值
      * 返回值：无
-     * */
+     */
     public static <T> void ListToBean(List<Object> list, T t) throws Exception {
         Field[] fields=t.getClass().getDeclaredFields();
         if (list.size() != fields.length) {
@@ -64,7 +64,7 @@ public class ListUtil {
                                 return;
                             }
                         }
-                    }else{
+                    } else {
                         e3.printStackTrace();
                         return;
                     }
@@ -100,8 +100,7 @@ public class ListUtil {
      * mask数据不足填“”，maskStr数据不足填“”，mask与maskStr最好对应
      * 该方法弃用
      */
-    public static Map<String, Object> ListToMap
-    (List<Object> org, List<Integer> mask, List<String> maskStr) {
+    public static Map<String, Object> ListToMap(List<Object> org, List<Integer> mask, List<String> maskStr) {
         int len=org.size();
         int mask_len=mask.size();
         int maskstr_len=maskStr.size();
@@ -135,5 +134,104 @@ public class ListUtil {
         }
         return ret;
     }
+
+    //判断两个数组是否相等（值+顺序）;空数组比较返回false
+    public static boolean IsListEqual(List<Object> listA, List<Object> listB) {
+        int lenA=listA == null ? 0 : listA.size();
+        int lenB=listB == null ? 0 : listB.size();
+        if (lenA == lenB) {
+            if (lenA == 0) {
+                return false;   //空数组比较返回false
+            }
+            for (int i=0; i < lenA; i++) {
+                if (listA.get(i).toString() != listB.get(i).toString()) {//存在不相等的值 则返回false
+                    return false;
+                }
+            }
+        } else {//长度不等 则返回false
+            return false;
+        }
+        return true;
+    }
+
+    //判断两个数组index中的数据是否相等
+    public static boolean IsListEqual(List<Object> listA, List<Object> listB, List<Integer> index) {
+        int lenA=listA == null ? 0 : listA.size();
+        int lenB=listB == null ? 0 : listB.size();
+        int num=index == null ? 0 : index.size();
+        int validNum=0;
+        if (num > 0) {
+            for (int i=0; i < num; i++) {
+                int t=index.get(i);
+                if (t < lenA && t < lenB && t >= 0) {
+                    Object la=(listA.get(t) == null) ? "" : listA.get(t).toString();
+                    Object lb=(listB.get(t) == null) ? "" : listB.get(t).toString();
+//                    if (listA.get(t) != listB.get(t)) {//空字符也会影响判断结果
+                    if (!la.equals(lb)) {//使用 != 有些字符判断不了
+                        //System.out.println(la + ":" + lb + "=" + (la.equals(lb)));
+                        return false;
+                    }
+                    validNum++;
+                }
+            }
+        } else {
+            return false;
+        }
+        if (validNum > 0) {
+            return true;
+        } else {//index中没有有效数据
+            return false;
+        }
+    }
+
+
+    //判断两个数组是否相等（值，不对顺序进行比较）;空数组比较返回false
+    public static boolean IsListValueEqual(List<Object> listA, List<Object> listB) {
+        int lenA=listA == null ? 0 : listA.size();
+        int lenB=listB == null ? 0 : listB.size();
+        if (lenA == lenB) {
+            if (lenA == 0) {
+                return false;   //空数组比较返回false
+            }
+            //方法1：需要Object对象重写equals方法
+            //if (!listA.containsAll(listB)) {
+            //   return false;
+            //}
+            //方法2：
+            List<Object> t_listA=listA;
+            List<Object> t_listB=listB;
+            for (Object o : t_listA) {
+                if (!t_listB.remove(o)) {//移除失败则返回false
+                    return false;
+                }
+            }
+        } else {//长度不等 则返回false
+            return false;
+        }
+        return true;
+    }
+
+    //判断数组ListArea是否包含listData,listData为空返回false
+    public static boolean IsListContain(List<Object> listData, List<Object> listArea) {
+        int lenA=listData == null ? 0 : listData.size();
+        int lenB=listArea == null ? 0 : listArea.size();
+        if (lenB >= lenA) {
+            if (lenA == 0) {
+                return false;   //空数组返回false
+            }
+            List<Object> t_listData=listData;
+            List<Object> t_listArea=listArea;
+            for (Object o : listData) {
+//                if(!listArea.contains(o)){//listData中的重复值会被忽略
+                if (!t_listArea.remove(o)) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
 
 }

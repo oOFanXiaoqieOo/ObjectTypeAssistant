@@ -66,4 +66,45 @@ public class TU {
         }
     }
 
+    /**将String转换为List<Integer>
+     * 对String格式有要求，分隔符为','
+     */
+    public static List<Integer> StrToListInt(String strs) {
+        if (strs == null) {
+            return new ArrayList<>();
+        } else {
+            String str[]=strs.split(",");
+            if(str.length>0){
+                List<Integer> ret = new ArrayList<>();
+                for(int i=0;i<str.length;i++){
+                    ret.add(TU.StrToInt(str[i]));//转化成Integer
+                }
+                return ret;
+            }else{
+                return new ArrayList<>();
+            }
+        }
+    }
+
+    /**将String转换为List<Integer>
+     * 参数strs:输入字符串
+     * 参数regex:正则表达式
+     */
+    public static List<Integer> StrToListInt(String strs,String regex) {
+        if (strs == null) {
+            return new ArrayList<>();
+        } else {
+            String str[]=strs.split(regex);
+            if(str.length>0){
+                List<Integer> ret = new ArrayList<>();
+                for(int i=0;i<str.length;i++){
+                    ret.add(TU.StrToInt(str[i]));//转化成Integer
+                }
+                return ret;
+            }else{
+                return new ArrayList<>();
+            }
+        }
+    }
+
 }

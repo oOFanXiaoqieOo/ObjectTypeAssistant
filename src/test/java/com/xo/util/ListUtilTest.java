@@ -36,7 +36,71 @@ public class ListUtilTest {
         TestEntity entity = new TestEntity();
         ListUtil.ListToBean(student,entity);
         System.out.println("Entity:"+ JSON.toJSONString(entity));
-//TODO: Test goes here... 
     }
+
+    @Test
+    public void testIsListEqual() throws Exception {
+        List<Object> la = new ArrayList<>();
+        List<Object> lb = new ArrayList<>();
+        la.add(1);
+        la.add(2);
+        la.add(null);
+        lb.add(1);
+        lb.add("2");
+        lb.add(null);
+        boolean ret = ListUtil.IsListEqual(la,lb);
+        System.out.println("Ret:"+ ret);
+    }
+
+    @Test
+    public void testIsListEqual2() throws Exception {
+        List<Object> la = new ArrayList<>();
+        List<Object> lb = new ArrayList<>();
+        List<Integer> index = new ArrayList<>();
+        la.add("1");
+        la.add("18");
+        la.add("1");
+        lb.add("1");
+        lb.add("18");
+        lb.add("1");
+        index.add(0);
+        index.add(1);
+        index.add(2);
+        boolean ret = ListUtil.IsListEqual(la,lb,index);
+        System.out.println("Ret:"+ ret);
+    }
+
+    @Test
+    public void testIsListValueEqual() throws Exception {
+        List<Object> la = new ArrayList<>();
+        List<Object> lb = new ArrayList<>();
+        la.add("2");
+        la.add(1);
+        la.add(1);
+        lb.add(1);
+        lb.add("2");
+        lb.add(1);
+
+        boolean ret = ListUtil.IsListValueEqual(la,lb);
+        System.out.println("Ret:"+ ret);
+    }
+
+    @Test
+    public void testIsListContain() throws Exception {
+        List<Object> la = new ArrayList<>();
+        List<Object> lb = new ArrayList<>();
+        la.add("2");
+        la.add(1);
+        la.add(2);
+        lb.add(1);
+        lb.add("2");
+        lb.add(3);
+        lb.add(2);
+
+        boolean ret = ListUtil.IsListContain(la,lb);
+        System.out.println("Ret:"+ ret);
+    }
+
+
 
 } 

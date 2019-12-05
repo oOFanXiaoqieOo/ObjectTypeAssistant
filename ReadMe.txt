@@ -36,7 +36,10 @@ ListUtil:List对象转换
 2.List<Object> ListMask(List<Object> org, List<Integer> mask)//将原List中的数据 根据mask 的下标数据重新取出重组 下标从0开始
 3.Map<String, Object> ListToMap(List<Object> org, Map<String, Integer> mask)//List转Map，并对数据进行组装
 
-
+4.boolean IsListEqual(List<Object> listA, List<Object> listB) //判断两个数组是否相等（值+顺序）;空数组比较返回false
+4-1.boolean IsListEqual(List<Object> listA, List<Object> listB, List<Integer> index)	//判断两个数组index中的数据是否相等 自动忽略index中的异常值
+5.boolean IsListValueEqual(List<Object> listA, List<Object> listB) //判断两个数组是否相等（值，不对顺序进行比较）;空数组比较返回false
+6.boolean IsListContain(List<Object> listData, List<Object> listArea)  //判断数组ListArea是否包含listData,listData为空返回false
 
 
 MapUtil：Map对象转换
@@ -44,6 +47,8 @@ MapUtil：Map对象转换
 2.<T> void MapToBean(Map<String, Object> map, T t)//实体方法中排除首字母的大小写影响，排除Integer和int的区别(返回数据为t)
 
 
-
-
-
+升级.简介（1.1）
+增加TreeUtil工具方法，实现将List数据转换为树结构数据
+List元数据需要继承ListTreeBaseEntity接口类，并手动绑定ID，fatherID和ListChildren数据
+1.getListTree 在具有父子节点信息的数据中 根据输入的树节点ID 构建树结构数据
+2.getRootListTree 获得父节点为rootID 的树结构数据
